@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Menu, X, Linkedin, Github, Instagram } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import profilePhoto from '@/assets/profile-photo.jpg';
+import profilePhoto from '@/assets/Perfil.jpeg';
 
 interface SidebarProps {
   activeSection: string;

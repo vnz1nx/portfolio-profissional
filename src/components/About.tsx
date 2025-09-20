@@ -10,8 +10,7 @@ const About = () => {
           <p className="text-lg leading-relaxed text-foreground/90 mb-6">
             Técnico em Informática no IF Goiano Campus Trindade, aprimoro continuamente minhas 
             habilidades em CSS, JavaScript e React.js, ferramentas essenciais para desenvolvimento 
-            web moderno. Na Malhas Brasil Ltda, contribuí ativamente para a organização e eficiência 
-            do estoque, aplicando princípios de tecnologia e inovação para melhorar processos.
+            web moderno.
           </p>
           
           <p className="text-lg leading-relaxed text-foreground/90">

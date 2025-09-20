@@ -3,10 +3,10 @@ import { Briefcase } from 'lucide-react';
 const Experience = () => {
   const experienceData = [
     {
-      title: 'Desenvolvedor Full Stack Jr',
-      company: 'Freelancer',
-      period: '2023 - Presente',
-      description: 'Desenvolvimento de aplicações web e mobile utilizando React, Next.js e React Native. Criação de interfaces responsivas e implementação de funcionalidades backend.',
+      title: 'Analista de Suporte',
+      company: 'Metaprime',
+      period: '2025 - Presente',
+      description: "Apoio técnico à equipe de desenvolvimento e clientes com foco em testes e validações.Experiência com sistemas ERP, análise de erros e documentação de procedimentos.Uso de ferramentas de acesso remoto, organização de tickets e acompanhamento de solicitações."
     },
     {
       title: 'Auxiliar de Estoque',

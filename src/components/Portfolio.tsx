@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import projectStuart from '@/assets/project-stuart.jpg';
-import projectVans from '@/assets/project-vans.jpg';
-import projectCalculator from '@/assets/project-calculator.jpg';
-import projectBarbershop from '@/assets/project-barbershop.jpg';
-import projectLogin from '@/assets/project-login.jpg';
-import projectUserSystem from '@/assets/project-user-system.jpg';
-import projectDuckMaze from '@/assets/project-duck-maze.jpg';
-import projectBarberApp from '@/assets/project-barberapp.jpg';
+import projectStuart from '@/assets/StuartEocaminho.png';
+import projectVans from '@/assets/Vans Tela.png';
+import projectCalculator from '@/assets/calculadora.jpeg';
+import projectBarbershop from '@/assets/BarbeariaJava.png';
+import projectLogin from '@/assets/SiteLogins.png';
+import projectUserSystem from '@/assets/RegistroDeUsuario.png';
+import projectDuckMaze from '@/assets/patoweb.png';
+import projectBarberApp from '@/assets/barberapp.jpeg';
 
 interface Project {
   id: number;
   title: string;
   category: string;
-  image: string;
+  image?: string;
+  video?: string;
   link: string;
   description: string;
 }

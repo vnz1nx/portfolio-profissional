@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
-import webIcon from '@/assets/web-icon.png';
+import webIcon from '@/assets/computador-portatil.png';
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);

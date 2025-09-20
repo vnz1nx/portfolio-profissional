@@ -3,7 +3,7 @@ import { Linkedin, Github, Instagram, Mail } from 'lucide-react';
 const Contact = () => {
   const socialLinks = [
     {
-      href: 'https://www.linkedin.com/in/marcos-vinicius-306151275/',
+      href: 'https://www.linkedin.com/in/marcos-vinicius-306151275',
       icon: Linkedin,
       label: 'LinkedIn',
       color: 'hover:text-blue-500',
@@ -50,7 +50,7 @@ const Contact = () => {
           </div>
 
           <a
-            href="mailto:marcosvinicius@example.com"
+            href="mailto:marcosvgp14@gmail.com"
             className="inline-flex items-center gap-2 px-8 py-3 bg-gradient-primary text-primary-foreground rounded-full font-medium hover:shadow-glow transition-all duration-300 hover:scale-105"
           >
             <Mail className="w-5 h-5" />

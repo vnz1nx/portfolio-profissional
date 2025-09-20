@@ -141,8 +141,7 @@
   .hover-glow {
     @apply transition-all duration-300 hover:shadow-glow;
   }
-  
-  .project-card {
+   .project-card {
     @apply bg-card rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-card;
   }
 }
