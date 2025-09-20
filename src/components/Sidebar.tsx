@@ -108,7 +108,7 @@ const Sidebar = ({ activeSection }: SidebarProps) => {
           {/* Footer */}
           <div className="pt-8 border-t border-sidebar-border">
             <p className="text-xs text-muted-foreground text-center">
-              © 2024 Marcos Vinícius
+              © 2025 Marcos Vinícius
             </p>
           </div>
         </div>
