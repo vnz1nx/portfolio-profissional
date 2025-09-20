@@ -15,6 +15,7 @@ const Sidebar = ({ activeSection }: SidebarProps) => {
     { href: '#habilidades', label: 'Minhas Habilidades' },
     { href: '#portfolio', label: 'Portfolio' },
     { href: '#formacao', label: 'Formação Acadêmica' },
+    { href: '#experiencia', label: 'Experiência' },
     { href: '#contato', label: 'Contato' },
   ];
 
@@ -62,7 +63,7 @@ const Sidebar = ({ activeSection }: SidebarProps) => {
                   />
                 </div>
               </div>
-              <div className="absolute inset-0 rounded-full bg-gradient-primary opacity-20 blur-xl animate-pulse"></div>
+              
             </div>
             <h2 className="text-xl font-poppins font-semibold mb-2">Marcos Vinícius</h2>
             <p className="text-muted-foreground text-sm">Desenvolvedor Full Stack</p>

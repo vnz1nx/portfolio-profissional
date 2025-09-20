@@ -5,6 +5,7 @@ import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Portfolio from '@/components/Portfolio';
 import Education from '@/components/Education';
+import Experience from '@/components/Experience';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 
@@ -13,7 +14,7 @@ const Index = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['sobre', 'habilidades', 'portfolio', 'formacao', 'contato'];
+      const sections = ['sobre', 'habilidades', 'portfolio', 'formacao', 'experiencia', 'contato'];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -42,6 +43,7 @@ const Index = () => {
         <Skills />
         <Portfolio />
         <Education />
+        <Experience />
         <Contact />
         <Footer />
       </main>
