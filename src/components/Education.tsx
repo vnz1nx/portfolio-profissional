@@ -3,6 +3,12 @@ import { GraduationCap } from 'lucide-react';
 const Education = () => {
   const educationData = [
     {
+      title: 'Engenharia de Software',
+      institution: 'Unigoias',
+      period: '2025 - presente',
+      description: '- Análise e modelagem de requisitos de softwar - Diagramas UML e metodologias ágeis (Scrum, Kanban) - Gestão de Projetos.',
+    },
+    {
       title: 'Técnico em Informática para Internet',
       institution: 'IF Goiano | Campus Trindade',
       period: '2022 a 2024',
