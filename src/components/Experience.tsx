@@ -3,15 +3,21 @@ import { Briefcase } from 'lucide-react';
 const Experience = () => {
   const experienceData = [
     {
+      title: 'Desenvolvedor Junior I',
+      company: 'Metaprime',
+      period: '2025/09 - Presente',
+      description:"Desenvolvimento de habilidades de nível Júnior 1, com foco em lógica de programação, HTML, CSS, JavaScript, versionamento de código (Git), SQL básico e fundamentos de Linux. Participação no aprendizado de operações de sistemas (cadastros, vendas, compras, financeiro) e primeiros passos em projetos com autonomia crescente."
+    },
+    {
       title: 'Analista de Suporte',
       company: 'Metaprime',
-      period: '2025 - Presente',
+      period: '2025/03 - 2025/09',
       description: "Apoio técnico à equipe de desenvolvimento e clientes com foco em testes e validações.Experiência com sistemas ERP, análise de erros e documentação de procedimentos.Uso de ferramentas de acesso remoto, organização de tickets e acompanhamento de solicitações."
     },
     {
       title: 'Auxiliar de Estoque',
       company: 'Malhas Brasil Ltda',
-      period: '2022 - 2023',
+      period: '2022/03 - 2023/02',
       description: 'Contribuí ativamente para a organização e eficiência do estoque, aplicando princípios de tecnologia e inovação para melhorar processos.',
     },
   ];
