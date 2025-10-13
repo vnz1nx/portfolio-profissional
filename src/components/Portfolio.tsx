@@ -29,7 +29,7 @@ const Portfolio = () => {
       title: 'Stuart e o castelo perdido',
       category: 'next',
       image: projectStuart,
-      link: 'https://labirinto-mv.vercel.app/',
+      link: 'https://labirinto-rho.vercel.app/',
       description: 'Jogo desenvolvido com Next.js'
     },
     {
@@ -165,5 +165,6 @@ const Portfolio = () => {
     </section>
   );
 };
+
 
 export default Portfolio;
