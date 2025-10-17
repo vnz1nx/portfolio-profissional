@@ -85,7 +85,7 @@ const Portfolio = () => {
       title: 'BarberApp',
       category: 'react-native',
       image: projectBarberApp,
-      link: 'https://barberapp1--a41hxtu2o1.expo.app/',
+      link: 'https://vnz1nxz-barberapp--l6whp4rlwz.expo.app/',
       description: 'App de agendamento para barbearias'
     },
   ];
