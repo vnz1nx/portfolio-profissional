@@ -1,6 +1,7 @@
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 
 const skills = [
+  { name: 'C',          logo: 'https://cdn.worldvectorlogo.com/logos/c-1.svg' },
   { name: 'Java',       logo: 'https://logospng.org/download/java/logo-java-4096.png' },
   { name: 'HTML5',      logo: 'https://logospng.org/download/html-5/logo-html-5-256.png' },
   { name: 'CSS3',       logo: 'https://logospng.org/download/css-3/logo-css-3-256.png' },
