@@ -1,70 +1,150 @@
-import { GraduationCap } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+
+const educationData = [
+  {
+    title: 'Engenharia de Software',
+    institution: 'Unigoias',
+    period: '2025 — presente',
+    description:
+      'Análise e modelagem de requisitos, diagramas UML, metodologias ágeis (Scrum, Kanban) e gestão de projetos.',
+  },
+  {
+    title: 'Técnico em Informática para Internet',
+    institution: 'IF Goiano | Campus Trindade',
+    period: '2022 — 2024',
+    description:
+      'Java, JavaScript, HTML5, CSS3, React Native, React.js e Next.js.',
+  },
+  {
+    title: 'Informática Básica',
+    institution: 'Microllins',
+    period: '2019 — 2021',
+    description:
+      'Word, Excel, PowerPoint, OneDrive e fundamentos de internet.',
+  },
+];
 
 const Education = () => {
-  const educationData = [
-    {
-      title: 'Engenharia de Software',
-      institution: 'Unigoias',
-      period: '2025 - presente',
-      description: '- Análise e modelagem de requisitos de softwar - Diagramas UML e metodologias ágeis (Scrum, Kanban) - Gestão de Projetos.',
-    },
-    {
-      title: 'Técnico em Informática para Internet',
-      institution: 'IF Goiano | Campus Trindade',
-      period: '2022 a 2024',
-      description: 'Possuo conhecimentos em: Java, JavaScript, HTML5, CSS, React Native, React.js, Next.js.',
-    },
-    {
-      title: 'Informática Básica',
-      institution: 'Microllins',
-      period: '2019 a 2021',
-      description: 'Possuo conhecimentos em: Word, Excel, PowerPoint, OneDrive, Informática, Internet.',
-    },
-  ];
+  const [sectionRef, isVisible] = useScrollAnimation<HTMLElement>();
+  const [lineRef, lineVisible]  = useScrollAnimation<HTMLDivElement>({ threshold: 0.05 });
 
   return (
-    <section id="formacao" className="py-20 px-8">
+    <section
+      id="formacao"
+      ref={sectionRef}
+      data-theme="light"
+      className="py-28 md:py-40 px-6"
+    >
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-poppins font-bold mb-12 gradient-text">
+
+        {/* Header */}
+        <p
+          className="eyebrow mb-4 transition-all duration-700"
+          style={{
+            opacity:  isVisible ? 1 : 0,
+            transform: isVisible ? 'translateY(0)' : 'translateY(16px)',
+            transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        >
+          Educação
+        </p>
+        <h2
+          className="font-poppins font-bold text-headline mb-16 transition-all duration-700"
+          style={{
+            color:           '#1d1d1f',
+            opacity:         isVisible ? 1 : 0,
+            transform:       isVisible ? 'translateY(0)' : 'translateY(20px)',
+            transitionDelay: '0.1s',
+            transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        >
           Formação Acadêmica
         </h2>
 
+        {/* Timeline */}
         <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-border"></div>
+          {/* Animated line */}
+          <div
+            ref={lineRef}
+            className="absolute left-[5px] top-2 bottom-2 w-px"
+            style={{ background: 'rgba(0,0,0,0.08)' }}
+          >
+            <div
+              style={{
+                position:   'absolute',
+                top: 0, left: 0, right: 0,
+                background: 'linear-gradient(to bottom, hsl(250 95% 55%), hsl(270 95% 60%))',
+                height:     lineVisible ? '100%' : '0%',
+                transition: 'height 1.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                transitionDelay: '0.3s',
+              }}
+            />
+          </div>
 
-          {/* Education items */}
-          <div className="space-y-8">
+          <div className="space-y-10 pl-10">
             {educationData.map((item, index) => (
               <div
                 key={index}
-                className="relative flex gap-8 animate-fade-in"
-                style={{ animationDelay: `${index * 0.2}s` }}
+                className="relative transition-all duration-700"
+                style={{
+                  opacity:         isVisible ? 1 : 0,
+                  transform:       isVisible ? 'translateX(0)' : 'translateX(30px)',
+                  transitionDelay: isVisible ? `${0.2 + index * 0.15}s` : '0s',
+                  transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+                }}
               >
-                {/* Timeline dot */}
-                <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-full bg-gradient-primary p-[2px]">
-                    <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-                      <GraduationCap className="w-6 h-6 text-primary" />
-                    </div>
-                  </div>
-                </div>
+                {/* Dot */}
+                <div
+                  className="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full"
+                  style={{
+                    background: index === 0
+                      ? 'linear-gradient(135deg, hsl(250 95% 55%), hsl(270 95% 60%))'
+                      : 'rgba(0,0,0,0.2)',
+                    boxShadow: index === 0
+                      ? '0 0 10px hsl(250 95% 55% / 0.4)'
+                      : 'none',
+                  }}
+                />
 
-                {/* Content */}
-                <div className="flex-1 glass-effect rounded-xl p-6 hover:shadow-card transition-all duration-300">
-                  <h3 className="text-xl font-poppins font-semibold mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-primary mb-2">{item.institution}</p>
-                  <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full mb-4">
-                    {item.period}
-                  </span>
-                  <p className="text-muted-foreground">{item.description}</p>
+                {/* Card */}
+                <div
+                  className="p-6 rounded-2xl transition-all duration-300 group"
+                  style={{
+                    background: 'rgba(0,0,0,0.03)',
+                    border:     '1px solid rgba(0,0,0,0.07)',
+                  }}
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                    <div>
+                      <h3
+                        className="font-poppins font-semibold text-lg mb-0.5"
+                        style={{ color: '#1d1d1f' }}
+                      >
+                        {item.title}
+                      </h3>
+                      <p className="text-sm font-medium" style={{ color: 'hsl(250 95% 50%)' }}>
+                        {item.institution}
+                      </p>
+                    </div>
+                    <span
+                      className="text-xs font-medium px-3 py-1 rounded-full shrink-0"
+                      style={{
+                        background: 'hsl(250 95% 55% / 0.1)',
+                        color:      'hsl(250 95% 50%)',
+                      }}
+                    >
+                      {item.period}
+                    </span>
+                  </div>
+                  <p className="text-sm leading-relaxed" style={{ color: '#6e6e73' }}>
+                    {item.description}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
+
       </div>
     </section>
   );

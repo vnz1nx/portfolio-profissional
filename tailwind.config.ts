@@ -2,20 +2,43 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      screens: { "2xl": "1400px" },
     },
     extend: {
       fontFamily: {
-        'poppins': ['Poppins', 'sans-serif'],
-        'inter': ['Inter', 'sans-serif'],
+        poppins: ["Poppins", "sans-serif"],
+        inter: ["Inter", "sans-serif"],
+        "sf-pro": [
+          "-apple-system",
+          "BlinkMacSystemFont",
+          '"SF Pro Display"',
+          '"Helvetica Neue"',
+          "sans-serif",
+        ],
+      },
+      fontSize: {
+        display: [
+          "clamp(3.5rem, 8vw, 6rem)",
+          { letterSpacing: "-0.04em", lineHeight: "1.05" },
+        ],
+        headline: [
+          "clamp(2rem, 5vw, 3.5rem)",
+          { letterSpacing: "-0.025em", lineHeight: "1.1" },
+        ],
+      },
+      transitionTimingFunction: {
+        apple: "cubic-bezier(0.16, 1, 0.3, 1)",
       },
       colors: {
         border: "hsl(var(--border))",
@@ -64,15 +87,15 @@ export default {
         },
       },
       backgroundImage: {
-        'gradient-primary': 'var(--gradient-primary)',
-        'gradient-subtle': 'var(--gradient-subtle)',
-        'gradient-card': 'var(--gradient-card)',
-        'gradient-glow': 'var(--gradient-glow)',
+        "gradient-primary": "var(--gradient-primary)",
+        "gradient-subtle": "var(--gradient-subtle)",
+        "gradient-card": "var(--gradient-card)",
+        "gradient-glow": "var(--gradient-glow)",
       },
       boxShadow: {
-        'elegant': 'var(--shadow-elegant)',
-        'glow': 'var(--shadow-glow)',
-        'card': 'var(--shadow-card)',
+        elegant: "var(--shadow-elegant)",
+        glow: "var(--shadow-glow)",
+        card: "var(--shadow-card)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -81,25 +104,32 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "apple-reveal": {
+          from: { opacity: "0", transform: "translateY(40px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "nav-slide-down": {
+          from: { transform: "translateY(-100%)", opacity: "0" },
+          to: { transform: "translateY(0)", opacity: "1" },
+        },
+        "scroll-bounce": {
+          "0%, 100%": { transform: "translateY(0)", opacity: "0.8" },
+          "50%": { transform: "translateY(8px)", opacity: "0.4" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "apple-reveal": "apple-reveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "nav-slide-down": "nav-slide-down 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "scroll-bounce": "scroll-bounce 1.5s ease-in-out infinite",
       },
     },
   },
