@@ -1,70 +1,148 @@
-import { Briefcase } from 'lucide-react';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
+
+const experienceData = [
+  {
+    title: 'Desenvolvedor Junior I',
+    company: 'Metaprime',
+    period: '2025/09',
+    description:
+      'Desenvolvimento de habilidades de nível Júnior I — lógica de programação, HTML, CSS, JavaScript, versionamento com Git, SQL e fundamentos de Linux. Participação em projetos com crescente autonomia.',
+  },
+  {
+    title: 'Analista de Suporte',
+    company: 'Metaprime',
+    period: '2025/03 — 2025/09',
+    description:
+      'Apoio técnico com foco em testes e validações. Experiência com sistemas ERP, análise de erros, documentação de procedimentos e ferramentas de acesso remoto.',
+  },
+  {
+    title: 'Auxiliar de Estoque',
+    company: 'Malhas Brasil Ltda',
+    period: '2022/03 — 2023/02',
+    description:
+      'Organização e eficiência do estoque, aplicando princípios de melhoria de processos e inovação operacional.',
+  },
+];
 
 const Experience = () => {
-  const experienceData = [
-    {
-      title: 'Desenvolvedor Junior I',
-      company: 'Metaprime',
-      period: '2025/09 - Presente',
-      description:"Desenvolvimento de habilidades de nível Júnior 1, com foco em lógica de programação, HTML, CSS, JavaScript, versionamento de código (Git), SQL básico e fundamentos de Linux. Participação no aprendizado de operações de sistemas (cadastros, vendas, compras, financeiro) e primeiros passos em projetos com autonomia crescente."
-    },
-    {
-      title: 'Analista de Suporte',
-      company: 'Metaprime',
-      period: '2025/03 - 2025/09',
-      description: "Apoio técnico à equipe de desenvolvimento e clientes com foco em testes e validações.Experiência com sistemas ERP, análise de erros e documentação de procedimentos.Uso de ferramentas de acesso remoto, organização de tickets e acompanhamento de solicitações."
-    },
-    {
-      title: 'Auxiliar de Estoque',
-      company: 'Malhas Brasil Ltda',
-      period: '2022/03 - 2023/02',
-      description: 'Contribuí ativamente para a organização e eficiência do estoque, aplicando princípios de tecnologia e inovação para melhorar processos.',
-    },
-  ];
+  const [sectionRef, isVisible] = useScrollAnimation<HTMLElement>();
+  const [lineRef, lineVisible]  = useScrollAnimation<HTMLDivElement>({ threshold: 0.05 });
 
   return (
-    <section id="experiencia" className="py-20 px-8">
+    <section
+      id="experiencia"
+      ref={sectionRef}
+      data-theme="dark"
+      className="py-28 md:py-40 px-6"
+      style={{ background: '#111113' }}
+    >
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-poppins font-bold mb-12 gradient-text">
+
+        {/* Header */}
+        <p
+          className="eyebrow mb-4 transition-all duration-700"
+          style={{
+            color:    '#a1a1a6',
+            opacity:  isVisible ? 1 : 0,
+            transform: isVisible ? 'translateY(0)' : 'translateY(16px)',
+            transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        >
+          Carreira
+        </p>
+        <h2
+          className="font-poppins font-bold text-white text-headline mb-16 transition-all duration-700"
+          style={{
+            opacity:         isVisible ? 1 : 0,
+            transform:       isVisible ? 'translateY(0)' : 'translateY(20px)',
+            transitionDelay: '0.1s',
+            transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        >
           Experiência Profissional
         </h2>
 
+        {/* Timeline */}
         <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-border"></div>
+          {/* Animated line */}
+          <div
+            ref={lineRef}
+            className="absolute left-[5px] top-2 bottom-2 w-px"
+            style={{ background: 'rgba(255,255,255,0.08)' }}
+          >
+            <div
+              style={{
+                position:   'absolute',
+                top: 0, left: 0, right: 0,
+                background: 'linear-gradient(to bottom, hsl(250 95% 65%), hsl(270 95% 70%))',
+                height:     lineVisible ? '100%' : '0%',
+                transition: 'height 1.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                transitionDelay: '0.3s',
+              }}
+            />
+          </div>
 
-          {/* Experience items */}
-          <div className="space-y-8">
+          <div className="space-y-10 pl-10">
             {experienceData.map((item, index) => (
               <div
                 key={index}
-                className="relative flex gap-8 animate-fade-in"
-                style={{ animationDelay: `${index * 0.2}s` }}
+                className="relative transition-all duration-700"
+                style={{
+                  opacity:         isVisible ? 1 : 0,
+                  transform:       isVisible ? 'translateX(0)' : 'translateX(30px)',
+                  transitionDelay: isVisible ? `${0.2 + index * 0.15}s` : '0s',
+                  transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
+                }}
               >
-                {/* Timeline dot */}
-                <div className="relative z-10">
-                  <div className="w-16 h-16 rounded-full bg-gradient-primary p-[2px]">
-                    <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-                      <Briefcase className="w-6 h-6 text-primary" />
-                    </div>
-                  </div>
-                </div>
+                {/* Dot */}
+                <div
+                  className="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full"
+                  style={{
+                    background: index === 0
+                      ? 'linear-gradient(135deg, hsl(250 95% 65%), hsl(270 95% 70%))'
+                      : 'rgba(255,255,255,0.2)',
+                    boxShadow: index === 0
+                      ? '0 0 10px hsl(250 95% 65% / 0.6)'
+                      : 'none',
+                  }}
+                />
 
-                {/* Content */}
-                <div className="flex-1 glass-effect rounded-xl p-6 hover:shadow-card transition-all duration-300">
-                  <h3 className="text-xl font-poppins font-semibold mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-primary mb-2">{item.company}</p>
-                  <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm rounded-full mb-4">
-                    {item.period}
-                  </span>
-                  <p className="text-muted-foreground">{item.description}</p>
+                {/* Card */}
+                <div
+                  className="p-6 rounded-2xl transition-all duration-300 hover:border-white/20 group"
+                  style={{
+                    background: 'rgba(255,255,255,0.03)',
+                    border:     '1px solid rgba(255,255,255,0.07)',
+                  }}
+                >
+                  <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
+                    <div>
+                      <h3 className="font-poppins font-semibold text-white text-lg mb-0.5">
+                        {item.title}
+                      </h3>
+                      <p style={{ color: 'hsl(250 95% 72%)' }} className="text-sm font-medium">
+                        {item.company}
+                      </p>
+                    </div>
+                    <span
+                      className="text-xs font-medium px-3 py-1 rounded-full shrink-0"
+                      style={{
+                        background: 'hsl(250 95% 65% / 0.1)',
+                        color:      'hsl(250 95% 72%)',
+                      }}
+                    >
+                      {item.period}
+                    </span>
+                  </div>
+                  <p className="text-sm leading-relaxed" style={{ color: '#a1a1a6' }}>
+                    {item.description}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
+
       </div>
     </section>
   );
