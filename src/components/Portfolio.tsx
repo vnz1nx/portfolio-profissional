@@ -15,7 +15,8 @@ interface Project {
   id: number;
   title: string;
   category: string;
-  image: string;
+  image?: string;
+  terminal?: boolean;
   link: string;
   description: string;
   featured?: boolean;
@@ -72,6 +73,14 @@ const projects: Project[] = [
     description: 'Calculadora mobile com React Native.',
   },
   {
+    id: 9,
+    title: 'RPG — SORTRIX',
+    category: 'c',
+    terminal: true,
+    link: '#',
+    description: 'Jogo RPG universitário em C com interface via CMD — mecânicas de jogo, inventário, personagens e narrativas dinâmicas.',
+  },
+  {
     id: 7,
     title: 'Programa para Barbearia',
     category: 'java',
@@ -96,7 +105,36 @@ const categories = [
   { value: 'react-native', label: 'React Native' },
   { value: 'java',         label: 'Java' },
   { value: 'html-css',     label: 'HTML/CSS' },
+  { value: 'c',            label: 'C' },
 ];
+
+/* ── Terminal Preview (for CMD/console projects) ── */
+const TerminalPreview = () => (
+  <div
+    className="w-full h-full flex flex-col font-mono text-xs"
+    style={{ background: '#0c0c0c', padding: '12px' }}
+  >
+    {/* Title bar */}
+    <div className="flex items-center gap-1.5 mb-3 pb-2" style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+      <div className="w-2.5 h-2.5 rounded-full bg-red-500/70" />
+      <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/70" />
+      <div className="w-2.5 h-2.5 rounded-full bg-green-500/70" />
+      <span className="ml-2 text-white/30 text-[10px]">C:\Windows\System32\cmd.exe</span>
+    </div>
+    {/* ASCII art */}
+    <pre className="text-green-400/80 leading-tight text-[9px] mb-3 select-none overflow-hidden">{`##############################################
+#                                            #
+#    ___  ___  ____  _____  ____  _  _  _  _#
+#   / __)(  _)(  _ \\(_  _)(  _ \\(_)( \\/ )( )#
+#   \\__ \\ ) _)  )   / _)(   )   / )/ \\/ \\ ) #
+#   (___/(___)(_)\\_)(____) (_)\\_(_)(_/\\_/(_) #
+#         BEM-VINDO AO SORTRIX               #
+##############################################`}</pre>
+    <p className="text-white/60 mb-1">1) U_U  Iniciar Jornada</p>
+    <p className="text-white/60 mb-3">2) ^_~  Sair para o Mundo Real</p>
+    <p className="text-white/40">Escolha teu destino, aventureiro: <span className="animate-pulse">_</span></p>
+  </div>
+);
 
 /* ── Featured Card (full-width) ── */
 const FeaturedCard = ({ project, visible, delay }: { project: Project; visible: boolean; delay: number }) => (
@@ -161,13 +199,17 @@ const StandardCard = ({ project, visible, delay }: { project: Project; visible: 
       transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
     }}
   >
-    {/* Image */}
+    {/* Image / Terminal */}
     <div className="relative overflow-hidden aspect-video">
-      <img
-        src={project.image}
-        alt={project.title}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
+      {project.terminal ? (
+        <TerminalPreview />
+      ) : (
+        <img
+          src={project.image}
+          alt={project.title}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      )}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
         <ArrowUpRight className="w-5 h-5 text-white translate-x-2 -translate-y-2 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-300" />
       </div>
