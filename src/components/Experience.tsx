@@ -67,10 +67,11 @@ const Experience = () => {
           {/* Animated line */}
           <div
             ref={lineRef}
-            className="absolute left-[5px] top-2 bottom-2 w-px"
-            style={{ background: 'rgba(255,255,255,0.08)' }}
+            className="absolute left-[7px] top-3 bottom-3 w-[2px] rounded-full"
+            style={{ background: 'rgba(255,255,255,0.14)' }}
           >
             <div
+              className="rounded-full"
               style={{
                 position:   'absolute',
                 top: 0, left: 0, right: 0,
@@ -78,11 +79,12 @@ const Experience = () => {
                 height:     lineVisible ? '100%' : '0%',
                 transition: 'height 1.4s cubic-bezier(0.16, 1, 0.3, 1)',
                 transitionDelay: '0.3s',
+                boxShadow:  '0 0 12px hsl(250 95% 65% / 0.45)',
               }}
             />
           </div>
 
-          <div className="space-y-10 pl-10">
+          <div className="space-y-10 pl-8">
             {experienceData.map((item, index) => (
               <div
                 key={index}
@@ -96,14 +98,16 @@ const Experience = () => {
               >
                 {/* Dot */}
                 <div
-                  className="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full"
+                  className="absolute top-2.5 w-3.5 h-3.5 rounded-full"
                   style={{
+                    left: '-30px',
                     background: index === 0
                       ? 'linear-gradient(135deg, hsl(250 95% 65%), hsl(270 95% 70%))'
-                      : 'rgba(255,255,255,0.2)',
-                    boxShadow: index === 0
-                      ? '0 0 10px hsl(250 95% 65% / 0.6)'
-                      : 'none',
+                      : '#3a3a40',
+                    // ring (4px section-bg) punches through the line; glow only on active
+                    boxShadow:
+                      '0 0 0 4px #111113' +
+                      (index === 0 ? ', 0 0 14px hsl(250 95% 65% / 0.7)' : ''),
                   }}
                 />
 

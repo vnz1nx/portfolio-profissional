@@ -7,6 +7,7 @@ import Education from '@/components/Education';
 import Experience from '@/components/Experience';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import CustomCursor from '@/components/CustomCursor';
 import { useNavScroll } from '@/hooks/useNavScroll';
 
 const Index = () => {
@@ -14,6 +15,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen" style={{ background: '#0a0a0a' }}>
+      <CustomCursor />
       <Nav isScrolled={isScrolled} activeSection={activeSection} />
 
       <main>

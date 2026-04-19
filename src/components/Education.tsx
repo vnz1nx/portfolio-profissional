@@ -66,10 +66,11 @@ const Education = () => {
           {/* Animated line */}
           <div
             ref={lineRef}
-            className="absolute left-[5px] top-2 bottom-2 w-px"
-            style={{ background: 'rgba(0,0,0,0.08)' }}
+            className="absolute left-[7px] top-3 bottom-3 w-[2px] rounded-full"
+            style={{ background: 'rgba(0,0,0,0.12)' }}
           >
             <div
+              className="rounded-full"
               style={{
                 position:   'absolute',
                 top: 0, left: 0, right: 0,
@@ -77,11 +78,12 @@ const Education = () => {
                 height:     lineVisible ? '100%' : '0%',
                 transition: 'height 1.4s cubic-bezier(0.16, 1, 0.3, 1)',
                 transitionDelay: '0.3s',
+                boxShadow:  '0 0 10px hsl(250 95% 55% / 0.35)',
               }}
             />
           </div>
 
-          <div className="space-y-10 pl-10">
+          <div className="space-y-10 pl-8">
             {educationData.map((item, index) => (
               <div
                 key={index}
@@ -95,14 +97,15 @@ const Education = () => {
               >
                 {/* Dot */}
                 <div
-                  className="absolute -left-[37px] top-1.5 w-3 h-3 rounded-full"
+                  className="absolute top-2.5 w-3.5 h-3.5 rounded-full"
                   style={{
+                    left: '-30px',
                     background: index === 0
                       ? 'linear-gradient(135deg, hsl(250 95% 55%), hsl(270 95% 60%))'
-                      : 'rgba(0,0,0,0.2)',
-                    boxShadow: index === 0
-                      ? '0 0 10px hsl(250 95% 55% / 0.4)'
-                      : 'none',
+                      : '#c8c8cc',
+                    boxShadow:
+                      '0 0 0 4px #f5f5f7' +
+                      (index === 0 ? ', 0 0 14px hsl(250 95% 55% / 0.5)' : ''),
                   }}
                 />
 

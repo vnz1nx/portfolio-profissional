@@ -290,6 +290,47 @@ section[data-theme] {
 }
 
 /* =========================================
+   Custom Cursor
+   ========================================= */
+@media (hover: hover) and (pointer: fine) {
+  html.custom-cursor-on,
+  html.custom-cursor-on * {
+    cursor: none !important;
+  }
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: hsl(270 95% 75%);
+  box-shadow: 0 0 12px hsl(270 95% 65% / 0.9), 0 0 4px hsl(250 95% 70% / 0.7);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: screen;
+  transition: opacity 0.2s ease;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  border-radius: 9999px;
+  border: 1px solid hsl(270 95% 75% / 0.7);
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: screen;
+  transition: opacity 0.25s ease, background 0.3s ease, border-width 0.2s ease;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-ring { transition: none; }
+}
+
+/* =========================================
    Scrollbar
    ========================================= */
 ::-webkit-scrollbar { width: 6px; }
