@@ -1,38 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-const SECTIONS = ['sobre', 'habilidades', 'portfolio', 'experiencia', 'formacao', 'contato'];
-const SCROLL_THRESHOLD = 60;
+const SECTIONS = ["especialidade", "projetos", "trajetoria", "formacao", "contato"];
 
-/**
- * Tracks scroll position for nav behaviour:
- * - isScrolled: true after 60px (triggers nav-glass style)
- * - activeSection: the section id currently in the viewport
- */
 export function useNavScroll() {
-  const [isScrolled, setIsScrolled]       = useState(false);
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const onScroll = () => {
-      setIsScrolled(window.scrollY > SCROLL_THRESHOLD);
-
-      const scrollPos = window.scrollY + 120;
+      const scrollPos = window.scrollY + 140;
+      let current = "";
       for (const id of SECTIONS) {
         const el = document.getElementById(id);
-        if (el) {
-          const { offsetTop, offsetHeight } = el;
-          if (scrollPos >= offsetTop && scrollPos < offsetTop + offsetHeight) {
-            setActiveSection(id);
-            break;
-          }
+        if (!el) continue;
+        const top = el.offsetTop;
+        const height = el.offsetHeight;
+        if (scrollPos >= top && scrollPos < top + height) {
+          current = id;
+          break;
         }
       }
+      setActiveSection(current);
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  return { isScrolled, activeSection };
+  return { activeSection };
 }

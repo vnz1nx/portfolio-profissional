@@ -1,241 +1,120 @@
-import { useEffect, useState } from 'react';
-import { cn } from '@/lib/utils';
-import { ChevronDown } from 'lucide-react';
-import { useScrollProgress } from '@/hooks/useScrollProgress';
-import profilePhoto from '@/assets/profile-marcos.png';
+import { MapPin, Mail, Github, Linkedin } from "lucide-react";
+import portraitImg from "@/assets/marcos-portrait.jpg";
+import { PROFILE } from "@/data/profile";
 
 const Hero = () => {
-  const [phase, setPhase] = useState(0);
-  const [sectionRef, progress] = useScrollProgress<HTMLElement>();
-
-  useEffect(() => {
-    const timers = [
-      setTimeout(() => setPhase(1), 100),
-      setTimeout(() => setPhase(2), 300),
-      setTimeout(() => setPhase(3), 600),
-      setTimeout(() => setPhase(4), 900),
-      setTimeout(() => setPhase(5), 1300),
-    ];
-    return () => timers.forEach(clearTimeout);
-  }, []);
-
-  const scrollToAbout = () =>
-    document.getElementById('sobre')?.scrollIntoView({ behavior: 'smooth' });
-
-  // Scroll-driven values (subtle, AirPods-style)
-  // progress 0 → entering, 1 → leaving
-  const photoScale = 1 + Math.min(progress, 0.5) * 0.12;     // grows up to +6%
-  const photoTranslate = progress * -40;                      // gentle parallax up
-  const textTranslate = progress * 60;                        // text drifts down a bit
-  const contentOpacity = 1 - Math.max(0, (progress - 0.45) * 2.2);
-
   return (
     <section
-      ref={sectionRef}
-      data-theme="dark"
-      className="relative min-h-screen overflow-hidden flex items-center pt-20 md:pt-0"
-      style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #1a0a2e 50%, #0a0a0a 100%)' }}
+      id="topo"
+      className="bg-tech-grid relative border-b border-[var(--line)] bg-[var(--bg)]"
     >
-      {/* Subtle glow orb */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            'radial-gradient(ellipse 80% 50% at 30% 50%, hsl(250 95% 65% / 0.18) 0%, transparent 70%)',
-        }}
-      />
-
-      {/* PHOTO — anchored to bottom-right, fills section height on desktop */}
-      <div
-        className={cn(
-          'hidden md:block absolute right-0 z-10 transition-all duration-1000 pointer-events-none',
-          phase >= 2 ? 'opacity-100' : 'opacity-0'
-        )}
-        style={{
-          height: 'min(85vh, 800px)',
-          bottom: '-30px',
-          transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-        }}
+        className="mx-auto max-w-[1200px] py-14 md:py-20 lg:py-24"
+        style={{ paddingInline: "var(--gutter)" }}
       >
-        <div
-          className="relative h-full"
-          style={{
-            transform: `translateY(${photoTranslate * 0.6}px) scale(${photoScale})`,
-            transformOrigin: 'bottom right',
-            willChange: 'transform',
-          }}
-        >
-          {/* Soft purple glow behind subject */}
-          <div
-            className="absolute inset-0 pointer-events-none -z-10"
-            style={{
-              background:
-                'radial-gradient(circle at 50% 55%, hsl(270 95% 65% / 0.45), hsl(250 95% 55% / 0.18) 45%, transparent 72%)',
-              filter: 'blur(50px)',
-              transform: 'scale(1.1)',
-            }}
-          />
-          <img
-            src={profilePhoto}
-            alt="Marcos Vinícius"
-            loading="eager"
-            draggable={false}
-            className="h-full w-auto select-none block"
-            style={{
-              filter:
-                'drop-shadow(0 25px 40px rgba(0,0,0,0.55)) drop-shadow(0 0 30px hsl(270 95% 70% / 0.22))',
-            }}
-          />
-        </div>
-      </div>
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-14">
+          {/* Coluna principal de texto */}
+          <div className="motion-enter lg:col-span-7">
+            <p className="mb-5 inline-flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs text-[var(--ink-muted)]">
+              <MapPin className="h-3.5 w-3.5 text-[var(--brand-accent)]" aria-hidden="true" />
+              <span>{PROFILE.location}</span>
+              <span aria-hidden="true">·</span>
+              <span>{PROFILE.availability}</span>
+            </p>
 
-      {/* Two-column layout (text + mobile photo placeholder) */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
-
-        {/* TEXT (left) */}
-        <div
-          className="text-center md:text-left order-2 md:order-1"
-          style={{
-            opacity: Math.max(contentOpacity, 0),
-            transform: `translateY(${textTranslate}px)`,
-            transition: 'opacity 0.2s linear',
-            willChange: 'transform',
-          }}
-        >
-          {/* Eyebrow */}
-          <p
-            className={cn(
-              'eyebrow mb-5 transition-all duration-700',
-              phase >= 1 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-            )}
-            style={{
-              color: '#a1a1a6',
-              transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-            }}
-          >
-            Olá, eu sou
-          </p>
-
-          {/* Name */}
-          <h1
-            className={cn(
-              'font-poppins font-bold text-white mb-5 transition-all duration-700',
-              'text-display',
-              phase >= 2 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            )}
-            style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
-          >
-            Marcos
-            <br />
-            <span
+            <h1
+              className="font-display font-bold text-[var(--ink)]"
               style={{
-                background:
-                  'linear-gradient(135deg, hsl(250 95% 65%), hsl(270 95% 70%))',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
+                fontSize: "clamp(2.65rem, 5.6vw, 4.65rem)",
+                lineHeight: 1.02,
+                letterSpacing: "-0.035em",
               }}
             >
-              Vinícius
-            </span>
-          </h1>
+              Marcos Vinicius
+              <span className="block text-[0.58em] font-semibold tracking-[-0.025em] text-[var(--ink-muted)]">
+                Gonçalves Piedade
+              </span>
+            </h1>
 
-          {/* Subtitle */}
-          <p
-            className={cn(
-              'text-base md:text-lg text-white/55 max-w-xl mx-auto md:mx-0 mb-9 leading-relaxed transition-all duration-700',
-              phase >= 3 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-            )}
-            style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
-          >
-            Desenvolvedor Full Stack — interfaces que unem performance e
-            experiência do usuário.
-          </p>
+            <p className="mt-6 font-display text-lg font-semibold text-[var(--brand-accent)] md:text-xl">
+              {PROFILE.role}
+            </p>
 
-          {/* CTAs */}
-          <div
-            className={cn(
-              'flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-4 transition-all duration-700',
-              phase >= 4 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-            )}
-            style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
-          >
-            <button
-              onClick={() =>
-                document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })
-              }
-              className="px-8 py-3.5 rounded-full font-medium text-sm text-white transition-all duration-300 hover:scale-105 hover:opacity-90"
-              style={{
-                background: 'linear-gradient(135deg, hsl(250 95% 65%), hsl(270 95% 70%))',
-              }}
-            >
-              Ver Projetos
-            </button>
+            <p className="mt-4 max-w-[58ch] text-base leading-[1.68] text-[var(--ink-muted)] md:text-[1.0625rem]">
+              {PROFILE.heroSummary}
+            </p>
 
-            <button
-              onClick={() =>
-                document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' })
-              }
-              className="px-8 py-3.5 rounded-full font-medium text-sm text-white/80 border border-white/20 hover:border-white/50 hover:text-white transition-all duration-300 hover:scale-105"
-            >
-              Contato
-            </button>
+            {/* Ações principais */}
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <a
+                href="#projetos"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-md bg-[var(--brand-accent)] px-6 py-2.5 text-sm font-semibold text-[#f6f5f1] transition-colors hover:bg-[var(--brand-accent-hover)]"
+              >
+                Ver projetos verificados
+              </a>
+              <a
+                href="#contato"
+                className="inline-flex min-h-[44px] items-center justify-center rounded-md border border-[var(--line-strong)] bg-[var(--surface-elevated)] px-5 py-2.5 text-sm font-semibold text-[var(--ink)] transition-colors hover:bg-[var(--surface)]"
+              >
+                Entrar em contato
+              </a>
+            </div>
+
+            {/* Links diretos e fatos reais */}
+            <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-[var(--line)] pt-6 text-sm">
+              <a
+                href={PROFILE.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-medium text-[var(--ink)] transition-colors hover:text-[var(--brand-accent)]"
+              >
+                <Linkedin className="h-4 w-4 text-[var(--ink-muted)]" aria-hidden="true" />
+                <span>LinkedIn</span>
+              </a>
+              <a
+                href={PROFILE.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-medium text-[var(--ink)] transition-colors hover:text-[var(--brand-accent)]"
+              >
+                <Github className="h-4 w-4 text-[var(--ink-muted)]" aria-hidden="true" />
+                <span>github.com/vnz1nx</span>
+              </a>
+              <a
+                href={`mailto:${PROFILE.email}`}
+                className="inline-flex items-center gap-2 font-medium text-[var(--ink)] transition-colors hover:text-[var(--brand-accent)]"
+              >
+                <Mail className="h-4 w-4 text-[var(--ink-muted)]" aria-hidden="true" />
+                <span>{PROFILE.email}</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Coluna do retrato editorial 4:5 */}
+          <div className="lg:col-span-5">
+            <figure className="mx-auto max-w-[390px] lg:ml-auto lg:mr-0">
+              <div className="overflow-hidden rounded-lg border border-[var(--line-strong)] bg-[var(--bg-dark)] p-2 shadow-[0_24px_50px_-28px_rgba(20,25,29,0.45)]">
+                <div className="aspect-[4/5] overflow-hidden rounded-[5px] bg-[#1e242a]">
+                  <img
+                    src={portraitImg}
+                    alt="Retrato profissional de Marcos Vinicius Gonçalves Piedade"
+                    width={800}
+                    height={1000}
+                    decoding="async"
+                    {...({
+                      fetchpriority: "high",
+                    } as React.ImgHTMLAttributes<HTMLImageElement>)}
+                    className="h-full w-full object-cover object-top"
+                  />
+                </div>
+              </div>
+              <figcaption className="mt-3 flex items-center justify-between gap-2 font-mono text-[11px] text-[var(--ink-muted)]">
+                <span>PostgreSQL · MySQL · Java · ERP</span>
+                <span className="tabular">IF Goiano · UniGoiás</span>
+              </figcaption>
+            </figure>
           </div>
         </div>
-
-        {/* PHOTO — mobile only (above text) */}
-        <div
-          className={cn(
-            'md:hidden relative mx-auto order-1 transition-all duration-1000',
-            phase >= 2 ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-          )}
-          style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
-        >
-          <div className="relative w-[260px] sm:w-[320px]">
-            <div
-              className="absolute inset-0 pointer-events-none -z-10"
-              style={{
-                background:
-                  'radial-gradient(circle at 50% 50%, hsl(270 95% 65% / 0.4), transparent 70%)',
-                filter: 'blur(35px)',
-                transform: 'scale(1.15)',
-              }}
-            />
-            <img
-              src={profilePhoto}
-              alt="Marcos Vinícius"
-              draggable={false}
-              className="w-full h-auto select-none"
-              style={{
-                filter:
-                  'drop-shadow(0 18px 30px rgba(0,0,0,0.45)) drop-shadow(0 0 22px hsl(270 95% 70% / 0.22))',
-              }}
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div
-        className={cn(
-          'absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-all duration-700',
-          phase >= 5 ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        )}
-        style={{
-          transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)',
-          opacity: phase >= 5 ? Math.max(1 - progress * 3, 0) : 0,
-        }}
-      >
-        <button
-          onClick={scrollToAbout}
-          className="flex flex-col items-center gap-1 group"
-          aria-label="Rolar para baixo"
-        >
-          <span className="text-xs text-white/30 tracking-widest uppercase font-medium">
-            scroll
-          </span>
-          <ChevronDown className="w-4 h-4 text-white/30 animate-scroll-bounce group-hover:text-white/60 transition-colors" />
-        </button>
       </div>
     </section>
   );

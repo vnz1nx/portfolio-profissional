@@ -1,33 +1,37 @@
-import Nav from '@/components/Nav';
-import Hero from '@/components/Hero';
-import About from '@/components/About';
-import Skills from '@/components/Skills';
-import Portfolio from '@/components/Portfolio';
-import Education from '@/components/Education';
-import Experience from '@/components/Experience';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
-import CustomCursor from '@/components/CustomCursor';
-import { useNavScroll } from '@/hooks/useNavScroll';
+import Nav from "@/components/Nav";
+import Hero from "@/components/Hero";
+import PracticeLab from "@/components/PracticeLab";
+import Portfolio from "@/components/Portfolio";
+import Experience from "@/components/Experience";
+import Education from "@/components/Education";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+import { useNavScroll } from "@/hooks/useNavScroll";
 
 const Index = () => {
-  const { isScrolled, activeSection } = useNavScroll();
+  const { activeSection } = useNavScroll();
 
   return (
-    <div className="min-h-screen" style={{ background: '#0a0a0a' }}>
-      <CustomCursor />
-      <Nav isScrolled={isScrolled} activeSection={activeSection} />
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--ink)]">
+      <a
+        href="#conteudo-principal"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-[var(--bg-dark)] focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-[var(--ink-on-dark)]"
+      >
+        Ir para o conteúdo principal
+      </a>
 
-      <main>
+      <Nav activeSection={activeSection} />
+
+      <main id="conteudo-principal">
         <Hero />
-        <About />
-        <Skills />
+        <PracticeLab />
         <Portfolio />
         <Experience />
         <Education />
         <Contact />
-        <Footer />
       </main>
+
+      <Footer />
     </div>
   );
 };

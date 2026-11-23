@@ -1,130 +1,114 @@
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
-import { Github, X, Menu } from 'lucide-react';
+import { useEffect, useRef } from "react";
+import { Menu } from "lucide-react";
+import { PROFILE } from "@/data/profile";
 
 interface NavProps {
-  isScrolled: boolean;
   activeSection: string;
 }
 
-const navLinks = [
-  { id: 'sobre',       label: 'Sobre' },
-  { id: 'habilidades', label: 'Skills' },
-  { id: 'portfolio',   label: 'Portfólio' },
-  { id: 'experiencia', label: 'Experiência' },
-  { id: 'formacao',    label: 'Formação' },
-  { id: 'contato',     label: 'Contato' },
+const NAV_ITEMS = [
+  { id: "especialidade", label: "Especialidade" },
+  { id: "projetos", label: "Projetos" },
+  { id: "trajetoria", label: "Trajetória" },
+  { id: "formacao", label: "Formação" },
+  { id: "contato", label: "Contato" },
 ];
 
-const scrollTo = (id: string) => {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
-};
+const Nav = ({ activeSection }: NavProps) => {
+  const menuRef = useRef<HTMLUListElement>(null);
 
-const Nav = ({ isScrolled, activeSection }: NavProps) => {
-  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    const menuEl = menuRef.current;
+    if (!menuEl) return;
+
+    const mq = window.matchMedia("(min-width: 820px)");
+
+    const syncPopoverMode = () => {
+      // Use setAttribute/removeAttribute rather than the popover IDL property
+      if (mq.matches) {
+        menuEl.removeAttribute("popover");
+      } else {
+        menuEl.setAttribute("popover", "auto");
+      }
+    };
+
+    syncPopoverMode();
+    mq.addEventListener("change", syncPopoverMode);
+    return () => mq.removeEventListener("change", syncPopoverMode);
+  }, []);
+
+  const handleNavClick = () => {
+    const menuEl = menuRef.current as (HTMLUListElement & { hidePopover?: () => void }) | null;
+    if (menuEl?.hasAttribute("popover") && typeof menuEl.hidePopover === "function") {
+      try {
+        menuEl.hidePopover();
+      } catch {
+        // Ignore when popover is already closed
+      }
+    }
+  };
 
   return (
-    <>
-      <header
-        className={cn(
-          'fixed top-0 left-0 right-0 z-50 transition-all duration-500',
-          isScrolled ? 'nav-glass' : 'bg-transparent'
-        )}
+    <header className="site-header">
+      <div
+        className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-4"
+        style={{ paddingInline: "var(--gutter)" }}
       >
-        <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-          {/* Logo / Monogram */}
+        <a
+          href="#topo"
+          className="inline-flex items-baseline gap-2.5 text-[var(--ink)] no-underline"
+        >
+          <span className="font-display text-lg font-bold tracking-tight">MV.</span>
+          <span className="hidden font-mono text-xs text-[var(--ink-muted)] sm:inline">
+            {PROFILE.shortName}
+          </span>
+        </a>
+
+        <nav aria-label="Navegação principal" className="flex items-center gap-3">
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="text-white font-sf-pro font-semibold text-lg tracking-tight hover:opacity-70 transition-opacity"
-            aria-label="Voltar ao topo"
+            type="button"
+            className="menu-button inline-flex min-h-[40px] items-center gap-2 rounded-md border border-[var(--line-strong)] bg-[var(--surface-elevated)] px-3 py-1.5 text-sm font-medium text-[var(--ink)] transition-colors hover:bg-[var(--surface)]"
+            {...({
+              popovertarget: "site-menu",
+              popovertargetaction: "toggle",
+            } as React.ButtonHTMLAttributes<HTMLButtonElement>)}
+            aria-controls="site-menu"
           >
-            MV
+            <Menu className="h-4 w-4" aria-hidden="true" />
+            <span>Menu</span>
           </button>
 
-          {/* Desktop links */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Navegação principal">
-            {navLinks.map((link) => (
-              <button
-                key={link.id}
-                onClick={() => scrollTo(link.id)}
-                className={cn(
-                  'text-sm font-medium transition-all duration-200 relative pb-0.5',
-                  'after:absolute after:bottom-0 after:left-0 after:h-px after:bg-white',
-                  'after:transition-all after:duration-300',
-                  activeSection === link.id
-                    ? 'text-white after:w-full'
-                    : 'text-white/60 hover:text-white after:w-0 hover:after:w-full'
-                )}
+          <ul id="site-menu" ref={menuRef} className="site-menu-popover list-none">
+            {NAV_ITEMS.map((item) => {
+              const isCurrent = activeSection === item.id;
+              return (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    onClick={handleNavClick}
+                    aria-current={isCurrent ? "location" : undefined}
+                    className="nav-link relative block rounded-md px-3 py-2 text-sm font-medium text-[var(--ink-muted)] transition-colors hover:text-[var(--ink)]"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              );
+            })}
+            <li className="mt-1 border-t border-[var(--line)] pt-2 min-[820px]:ml-2 min-[820px]:mt-0 min-[820px]:border-l min-[820px]:border-t-0 min-[820px]:pl-3 min-[820px]:pt-0">
+              <a
+                href={PROFILE.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={handleNavClick}
+                className="block rounded-md px-3 py-2 font-mono text-xs font-medium text-[var(--ink)] transition-colors hover:text-[var(--brand-accent)]"
               >
-                {link.label}
-              </button>
-            ))}
-          </nav>
-
-          {/* Right side */}
-          <div className="flex items-center gap-4">
-            <a
-              href="https://github.com/VNZ1nx"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white/60 hover:text-white transition-colors"
-              aria-label="GitHub"
-            >
-              <Github className="w-4 h-4" />
-            </a>
-
-            {/* Mobile hamburger */}
-            <button
-              onClick={() => setMenuOpen(true)}
-              className="md:hidden text-white/70 hover:text-white transition-colors"
-              aria-label="Abrir menu"
-            >
-              <Menu className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Mobile overlay menu */}
-      {menuOpen && (
-        <div
-          className="fixed inset-0 z-[100] flex flex-col"
-          style={{ background: 'rgba(10,10,10,0.97)', backdropFilter: 'blur(20px)' }}
-        >
-          {/* Close button */}
-          <div className="flex justify-end p-6">
-            <button
-              onClick={() => setMenuOpen(false)}
-              className="text-white/60 hover:text-white transition-colors"
-              aria-label="Fechar menu"
-            >
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-
-          {/* Links */}
-          <nav className="flex-1 flex flex-col justify-center items-center gap-8 px-8">
-            {navLinks.map((link, i) => (
-              <button
-                key={link.id}
-                onClick={() => { scrollTo(link.id); setMenuOpen(false); }}
-                className="text-4xl font-poppins font-semibold text-white/80 hover:text-white transition-all duration-200 hover:scale-105"
-                style={{ animationDelay: `${i * 0.06}s` }}
-              >
-                {link.label}
-              </button>
-            ))}
-          </nav>
-
-          {/* Social footer */}
-          <div className="flex justify-center gap-6 p-10">
-            <a href="https://github.com/VNZ1nx"        target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors text-sm">GitHub</a>
-            <a href="https://www.linkedin.com/in/marcos-vinicius-306151275" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors text-sm">LinkedIn</a>
-            <a href="https://www.instagram.com/marcosxh_" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white transition-colors text-sm">Instagram</a>
-          </div>
-        </div>
-      )}
-    </>
+                GitHub
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
   );
 };
 
